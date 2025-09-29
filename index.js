@@ -25,8 +25,6 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", async (message) => {
-  if (message.author.bot) return;
-
   try {
     await fetch(N8N_WEBHOOK_URL, {
       method: "POST",
@@ -35,6 +33,7 @@ client.on("messageCreate", async (message) => {
         user: {
           id: message.author.id,
           name: message.author.username,
+          bot: message.author.bot,
         },
         channel: message.channel.id,
         text: message.content,
